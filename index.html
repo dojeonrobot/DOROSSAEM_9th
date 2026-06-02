@@ -11,16 +11,20 @@
     <style>
         :root {
             --primary: #1A56DB; /* DORO 메인 블루 */
+            --primary-light: #EFF6FF;
+            --primary-border: #BFDBFE;
             --text-dark: #111111;
             --text-main: #333333;
             --text-muted: #666666;
             --border-light: #E2E8F0;
             --border-dark: #222222;
             
-            /* 깔끔한 흰색/밝은 회색 배경으로 원복 */
             --bg-main: #ffffff; 
-            --bg-sub: #F8FAFC;  /* 섹션 구분용 (아주 연한 회파랑) */
+            --bg-sub: #F8FAFC;  
             --bg-card: #ffffff;
+            
+            --accent-green: #10B981;
+            --accent-green-light: #F0FDF4;
             
             --content-width: 1000px;
         }
@@ -31,8 +35,7 @@
             font-family: 'Pretendard', sans-serif;
             color: var(--text-main);
             line-height: 1.6;
-            word-break: keep-all; /* 어색한 줄바꿈 방지 */
-            overflow-wrap: break-word;
+            word-break: keep-all; 
             background-color: var(--bg-main); 
             -webkit-font-smoothing: antialiased;
         }
@@ -68,14 +71,6 @@
 
         .highlight { color: var(--primary); }
 
-        /* Placeholders & Images */
-        .img-placeholder {
-            background-color: #E5E7EB;
-            display: flex; align-items: center; justify-content: center;
-            color: #9CA3AF; font-weight: bold; font-size: 1.1rem;
-            border-radius: 20px; width: 100%;
-        }
-
         /* Buttons */
         .btn-outline {
             display: inline-flex; justify-content: center; align-items: center;
@@ -91,31 +86,91 @@
         }
 
         /* 1. Hero Section */
-        .hero { padding: 180px 0 140px; }
+        .hero { padding: 180px 0 140px; text-align: center; }
         .hero-label {
-            font-weight: 700; color: var(--primary); font-size: 1.1rem;
-            margin-bottom: 24px; display: inline-block;
-            background: #EFF6FF; padding: 8px 16px; border-radius: 30px;
-            border: 1px solid #BFDBFE;
+            font-weight: 800; color: var(--primary); font-size: 1.15rem;
+            margin-bottom: 32px; display: inline-block;
+            background: var(--primary-light); padding: 10px 24px; border-radius: 40px;
+            border: 1px solid var(--primary-border); letter-spacing: -0.02em;
         }
-        .hero-title { font-size: 4.8rem; font-weight: 900; margin-bottom: 32px; }
+        .hero-title { font-size: 5rem; font-weight: 900; margin-bottom: 32px; line-height: 1.2; letter-spacing: -0.04em; }
         .hero-subtitle { font-size: 1.5rem; color: var(--text-main); font-weight: 500; margin-bottom: 60px; line-height: 1.6; }
         
-        .hero-banner-img { width: 100%; height: 500px; margin-top: 60px; border-radius: 24px; box-shadow: 0 12px 32px rgba(0,0,0,0.08); object-fit: cover; }
+        /* Hero Info Pills */
+        .hero-info-grid {
+            display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 60px;
+        }
+        .hero-info-pill {
+            background: white; border: 1px solid var(--border-light); padding: 16px 28px;
+            border-radius: 50px; font-weight: 600; font-size: 1.1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            display: flex; align-items: center; gap: 8px;
+        }
+        .hero-info-pill span { color: var(--primary); font-weight: 800; }
+
+        .hero-banner-img { width: 100%; height: 500px; border-radius: 24px; box-shadow: 0 12px 32px rgba(0,0,0,0.08); object-fit: cover; }
 
         /* 2. Intro */
+        /* PC에서는 수직 정렬을 start로 하여 어긋나지 않게 복구 */
         .intro-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
         }
         .intro-grid h3 { font-size: 2.5rem; font-weight: 800; }
         .intro-grid p { font-size: 1.25rem; color: var(--text-main); line-height: 1.7; }
         
-        .target-grid { grid-template-columns: 1.3fr 1fr; gap: 60px; align-items: flex-start; margin-top: 60px; }
+        /* Target Grid (공대생 vs 교대생) */
+        .major-compare-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 60px;
+        }
+        .major-card {
+            background: var(--bg-card); border-radius: 24px; padding: 48px 40px;
+            border: 1px solid var(--border-light); box-shadow: 0 8px 24px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .major-card:hover { transform: translateY(-8px); }
+        .major-card-tech { border-top: 4px solid var(--primary); }
+        .major-card-tech:hover { box-shadow: 0 16px 40px rgba(26, 86, 219, 0.08); }
+        .major-card-edu { border-top: 4px solid var(--accent-green); }
+        .major-card-edu:hover { box-shadow: 0 16px 40px rgba(16, 185, 129, 0.08); }
+        
+        .major-card-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+        .major-card-tech .major-card-title { color: var(--primary); }
+        .major-card-edu .major-card-title { color: var(--accent-green); }
+        
+        .major-list { margin: 0; padding: 0; list-style: none; }
+        .major-list li {
+            position: relative; padding-left: 24px; margin-bottom: 20px;
+            font-size: 1.15rem; font-weight: 500; color: var(--text-main); line-height: 1.6;
+        }
+        .major-list li:last-child { margin-bottom: 0; }
+        .major-list li::before {
+            content: '✓'; position: absolute; left: 0; top: 0; font-weight: 900;
+        }
+        .major-card-tech .major-list li::before { color: var(--primary); }
+        .major-card-edu .major-list li::before { color: var(--accent-green); }
+
+        /* 확대/축소 등 이미지가 깔끔하게 잘리도록 wrapper 추가 */
+        .major-img-wrapper {
+            width: 100%; height: 280px; border-radius: 12px; margin-bottom: 32px; border: 1px solid var(--border-light); overflow: hidden;
+        }
+        .major-card-img {
+            width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;
+        }
+
+        /* Banner Box */
+        .highlight-banner {
+            background: linear-gradient(135deg, var(--primary-light), white);
+            border: 1px solid var(--primary-border);
+            border-radius: 24px; padding: 48px; text-align: center;
+            margin: 80px 0; box-shadow: 0 12px 32px rgba(26, 86, 219, 0.05);
+        }
+        .highlight-banner h3 { font-size: 2rem; font-weight: 800; color: var(--primary); margin-bottom: 16px; }
+        .highlight-banner p { font-size: 1.25rem; font-weight: 600; color: var(--text-dark); margin: 0; line-height: 1.6; }
 
         .doro-logo { width: 100%; max-width: 280px; height: auto; margin: 0 auto 20px auto; object-fit: contain; display: block; }
 
         /* 3. Activities */
-        .activity-section { display: flex; gap: 100px; } 
+        /* PC에서 충분한 여백과 너비 유지 */
+        .activity-section { display: flex; gap: 100px; align-items: stretch; } 
         .activity-images { flex: 1; display: flex; flex-direction: column; gap: 32px; }
         .activity-img { width: 100%; height: 320px; object-fit: cover; border-radius: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); border: 1px solid var(--border-light); }
         .activity-content { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 120px; }
@@ -133,17 +188,15 @@
             content: '·'; position: absolute; left: 0; top: 0; font-weight: 900; color: var(--primary);
         }
 
-        .target-list { margin-top: 40px; }
-        .target-list li { font-size: 1.25rem; margin-bottom: 28px; }
-        .target-list li:last-child { margin-bottom: 0; }
-
         /* Role Comparison Grid */
         .role-detail-section { margin-top: 140px; padding-top: 140px; border-top: 1px dashed var(--border-light); }
         .role-detail-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 60px; text-align: center; }
+        
+        .pay-badge-wrapper { text-align: center; margin-bottom: 60px; }
+        .pay-badge-desc { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 16px; }
+        .pay-badge { display: inline-block; background-color: #EFF6FF; border: 1px solid #BFDBFE; padding: 16px 32px; border-radius: 50px; font-size: 1.25rem; font-weight: 800; color: var(--primary); }
 
-        .role-compare-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
-        }
+        .role-compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 60px; }
 
         .role-bottom-wrapper { margin-top: 60px; text-align: center; }
         .role-bottom-title { font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin-bottom: 16px; line-height: 1.5; }
@@ -164,14 +217,14 @@
         .benefit-item:hover {
             transform: translateY(-8px);
             box-shadow: 0 16px 40px rgba(0,0,0,0.08);
-            border-color: var(--primary); /* 호버 시 테두리 파란색으로 강조 */
+            border-color: var(--primary);
         }
         .benefit-icon {
             font-size: 2.2rem; margin-bottom: 20px; display: block;
         }
         .benefit-item h4 { font-size: 1.35rem; font-weight: 800; margin-bottom: 12px; }
         .benefit-item p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.5; }
-        .benefit-highlight { margin-top: 8px; font-size: 1rem; color: var(--primary); font-weight: 700; display: block; }
+        .benefit-highlight { margin-top: 12px; font-size: 1rem; color: var(--primary); font-weight: 700; background: var(--primary-light); padding: 8px 16px; border-radius: 8px; display: inline-block; }
 
         /* 5. Process / Schedule */
         .process-list { border-top: 2px solid var(--text-dark); margin-top: 50px; }
@@ -192,7 +245,7 @@
         .process-sub { font-size: 1rem; color: var(--text-muted); margin-top: 12px; display: block; line-height: 1.6; }
         .process-sub-list { margin-top: 6px; padding-left: 12px; border-left: 2px solid var(--border-light); display: block; font-size: 1rem; color: var(--text-muted); line-height: 1.6; }
 
-        /* Info Boxes (포인트 테두리 스타일) */
+        /* Info Boxes (기본 PC 여백 48px 복구) */
         .info-box {
             background-color: var(--bg-card); 
             padding: 48px; 
@@ -202,16 +255,20 @@
             box-shadow: 0 8px 32px rgba(0,0,0,0.03);
         }
         .info-box.highlight-box {
-            border: 2px solid var(--primary); /* 파란색 포인트 */
+            border: 2px solid var(--primary);
             box-shadow: 0 8px 32px rgba(26, 86, 219, 0.08);
         }
         .info-box.highlight-box-green {
-            border: 2px solid #10B981; /* 연두/초록색 계열 포인트 */
+            border: 2px solid var(--accent-green);
             box-shadow: 0 8px 32px rgba(16, 185, 129, 0.08);
         }
         .info-box h4 { font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; color: var(--primary); }
-        .info-box.highlight-box-green h4 { color: #10B981; }
+        .info-box.highlight-box-green h4 { color: var(--accent-green); }
 
+        .target-grid { grid-template-columns: 1.3fr 1fr; gap: 60px; align-items: flex-start; margin-top: 60px; }
+        .target-list { margin-top: 40px; }
+        .target-list li { font-size: 1.25rem; margin-bottom: 28px; }
+        .target-list li:last-child { margin-bottom: 0; }
         .target-box { padding: 40px; margin-bottom: 0; }
         .target-box h4 { margin-bottom: 24px; font-size: 1.35rem; }
         .target-box p { margin-bottom: 16px; font-size: 1.15rem; line-height: 1.6; }
@@ -235,19 +292,20 @@
         /* Big CTA Footer */
         .bottom-cta {
             position: relative; padding: 180px 0; text-align: center; color: white;
-            overflow: hidden; background-color: #000; /* 기본 배경 검정 */
+            overflow: hidden; background-color: #000; 
         }
         .bottom-cta-img {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center;
             z-index: 0;
         }
-        /* 사진 위에 어두운 막을 씌워 흰색 글씨 무조건 보이게 처리 */
         .bottom-cta-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0, 0, 0, 0.65); z-index: 1;
+            background: rgba(0, 0, 0, 0.7); z-index: 1;
         }
         .bottom-cta-content { position: relative; z-index: 2; }
-        .bottom-cta h2 { color: white; font-size: 3.5rem; font-weight: 900; margin-bottom: 50px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .bottom-cta h2 { color: white; font-size: 3.5rem; font-weight: 900; margin-bottom: 24px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); line-height: 1.2; letter-spacing: -0.03em;}
+        .bottom-cta p { font-size: 1.5rem; font-weight: 500; margin-bottom: 60px; color: rgba(255,255,255,0.9); line-height: 1.5; }
+        
         .btn-huge {
             display: inline-block; background-color: var(--primary); color: white;
             font-size: 1.5rem; font-weight: 800; padding: 24px 60px; border-radius: 60px;
@@ -269,66 +327,95 @@
 
         .footer-info { margin-top: 60px; color: rgba(255,255,255,0.8); font-size: 1.05rem; display: flex; flex-direction: column; gap: 16px; align-items: center; }
 
-        /* Mobile Responsive (모바일 최적화 영역) */
+        /* 📱 Mobile Responsive: 화면 크기 768px 이하일 때만 작동하도록 철저히 분리 */
         @media (max-width: 768px) {
-            section { padding: 80px 0; }
-            .section-bg { padding: 80px 0; }
-            
-            .sec-title { font-size: 2rem; margin-bottom: 16px; }
-            .sec-desc { font-size: 1.1rem; margin-bottom: 32px; }
+            .container { padding-left: 20px; padding-right: 20px; }
+            section { padding: 60px 0; }
+            .section-bg { padding: 60px 0; }
+            .sec-title { font-size: 1.8rem; margin-bottom: 12px; }
+            .sec-desc { font-size: 1.05rem; margin-bottom: 32px; }
 
-            .hero { padding: 120px 0 80px; }
-            .hero-title { font-size: 2.8rem; margin-bottom: 20px; }
-            .hero-subtitle { font-size: 1.15rem; margin-bottom: 40px; }
-            .hero-banner-img { height: 300px; margin-top: 40px; border-radius: 16px !important; }
+            /* Hero */
+            .hero { padding: 100px 0 60px; }
+            .hero-label { font-size: 1rem; margin-bottom: 24px; padding: 8px 20px; }
+            .hero-title { font-size: 2.6rem; margin-bottom: 20px; }
+            .hero-subtitle { font-size: 1.1rem; margin-bottom: 32px; }
+            .hero-info-grid { flex-direction: column; gap: 8px; margin-bottom: 40px; }
+            .hero-info-pill { justify-content: center; font-size: 0.95rem; padding: 12px 20px; }
+            .hero-banner-img { height: 240px; margin-top: 32px; border-radius: 16px !important; }
 
+            /* Intro */
             .intro-grid { grid-template-columns: 1fr; gap: 40px; }
-            .intro-grid h3 { font-size: 1.8rem; }
-            .intro-grid p { font-size: 1.1rem; }
+            .intro-grid h3 { font-size: 1.6rem; }
+            .intro-grid p { font-size: 1.05rem; }
+            .doro-logo { max-width: 200px; margin-bottom: 16px; }
+            
+            /* Target Major Cards */
+            .major-compare-grid { grid-template-columns: 1fr; gap: 20px; margin-top: 32px; }
+            .major-card { padding: 28px 20px; border-radius: 16px; }
+            .major-img-wrapper { height: 200px; margin-bottom: 24px; }
+            .major-card-title { font-size: 1.4rem; margin-bottom: 16px; }
+            .major-list li { font-size: 1.05rem; margin-bottom: 12px; }
 
-            .target-grid { grid-template-columns: 1fr; gap: 40px; margin-top: 40px; }
-            .target-list { margin-top: 24px; }
-            .target-list li { font-size: 1.1rem; margin-bottom: 20px; }
-            .target-box { padding: 32px 24px; }
-            .target-box h4 { font-size: 1.25rem; margin-bottom: 20px; }
-            .target-box p { font-size: 1.05rem; }
+            .highlight-banner { padding: 28px 20px; margin: 40px 0; border-radius: 16px; }
+            .highlight-banner h3 { font-size: 1.35rem; margin-bottom: 12px; }
+            .highlight-banner p { font-size: 1rem; }
 
+            /* Activities */
             .activity-section { flex-direction: column; gap: 40px; }
-            .activity-content { gap: 40px; } 
-            .activity-img { height: 240px; border-radius: 16px; }
-            .role-group-title { font-size: 1.4rem; }
-            .role-list li { font-size: 1.1rem; margin-bottom: 12px; }
+            .activity-content { gap: 60px; } 
+            .activity-images { gap: 16px; }
+            .activity-img { height: 220px; border-radius: 12px; }
+            .role-group-title { font-size: 1.4rem; margin-bottom: 16px; padding-bottom: 12px; }
+            .role-list li { font-size: 1.05rem; margin-bottom: 12px; }
 
+            /* Roles */
             .role-detail-section { margin-top: 80px; padding-top: 80px; }
             .role-detail-title { font-size: 1.8rem; margin-bottom: 32px; }
-            .role-compare-grid { grid-template-columns: 1fr; gap: 24px; }
-            .info-box { padding: 32px 24px; margin-bottom: 0; }
-            .info-box h4 { font-size: 1.3rem; margin-bottom: 20px; }
+            .pay-badge-wrapper { margin-bottom: 32px; }
+            .pay-badge { font-size: 1.05rem; padding: 12px 20px; }
+            .role-compare-grid { grid-template-columns: 1fr; gap: 20px; margin-top: 32px; }
+            .info-box { padding: 32px 24px; border-radius: 16px; margin-bottom: 0; }
+            .info-box h4 { font-size: 1.25rem; margin-bottom: 16px; }
 
-            .role-bottom-wrapper { margin-top: 40px; }
-            .role-bottom-title { font-size: 1.2rem; margin-bottom: 12px; }
-            .role-bottom-desc { font-size: 1rem; }
+            .role-bottom-wrapper { margin-top: 32px; }
+            .role-bottom-title { font-size: 1.15rem; margin-bottom: 12px; }
+            .role-bottom-desc { font-size: 0.95rem; }
 
-            .benefit-grid { grid-template-columns: 1fr; gap: 24px; }
+            /* Benefits */
+            .benefit-grid { grid-template-columns: 1fr; gap: 20px; }
             .benefit-item { padding: 32px 24px; border-radius: 16px; }
-            .benefit-item h4 { font-size: 1.25rem; }
-            .benefit-item p { font-size: 1.05rem; }
+            .benefit-icon { font-size: 1.8rem; margin-bottom: 12px; }
+            .benefit-item h4 { font-size: 1.15rem; margin-bottom: 8px; }
+            .benefit-item p { font-size: 1rem; }
 
+            /* Process */
             .process-list { margin-top: 32px; }
             .process-row { flex-direction: column; padding: 32px 0; gap: 16px; }
-            .process-num { width: 44px; height: 44px; font-size: 1.2rem; margin-bottom: 8px; }
+            .process-num { width: 44px; height: 44px; font-size: 1.2rem; margin-bottom: 4px; }
             .process-title { margin-top: 0; flex: auto; font-size: 1.25rem; }
             .process-desc { font-size: 1.05rem; }
-            .process-sub-list { font-size: 0.95rem; }
+            .process-sub-list { font-size: 0.95rem; margin-top: 10px; }
 
-            .faq-q { font-size: 1.15rem; padding: 24px 0; }
-            .faq-a { font-size: 1.05rem; padding: 0 0 24px 0; }
+            /* Target Box */
+            .target-grid { grid-template-columns: 1fr; gap: 32px; margin-top: 40px; }
+            .target-list { margin-top: 16px; }
+            .target-list li { font-size: 1.1rem; margin-bottom: 16px; }
+            .target-box { padding: 32px 24px; border-radius: 16px; }
+            .target-box h4 { font-size: 1.2rem; margin-bottom: 16px; }
+            .target-box p { font-size: 1rem; margin-bottom: 12px; }
 
-            .bottom-cta { padding: 120px 0; }
-            .bottom-cta h2 { font-size: 2rem; margin-bottom: 32px; }
-            .btn-huge { font-size: 1.25rem; padding: 16px 24px; width: 100%; box-sizing: border-box; }
-            .btn-outline { font-size: 1.05rem; padding: 12px 24px; width: 100%; text-align: center; box-sizing: border-box; margin-bottom: 40px; }
-            .footer-info { margin-top: 40px; font-size: 0.95rem; }
+            /* FAQ */
+            .faq-q { font-size: 1.1rem; padding: 20px 0; }
+            .faq-a { font-size: 1rem; padding: 0 0 20px 0; }
+
+            /* Footer CTA */
+            .bottom-cta { padding: 100px 0; }
+            .bottom-cta h2 { font-size: 2.2rem; margin-bottom: 16px; }
+            .bottom-cta p { font-size: 1.15rem; margin-bottom: 40px; }
+            .btn-huge { font-size: 1.2rem; padding: 16px 24px; width: 100%; box-sizing: border-box; }
+            .btn-outline { font-size: 1rem; padding: 12px 20px; width: 100%; text-align: center; box-sizing: border-box; margin-bottom: 32px; }
+            .footer-info { margin-top: 40px; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -336,15 +423,22 @@
 
     <!-- 1. Hero Section -->
     <header class="hero container">
-        <div class="hero-label">디지털 교육 강사단 DOROSSAEM 9기 모집</div>
+        <div class="hero-label">공학 × 교육 디지털 강사단 DOROSSAEM 9기 모집</div>
         <h1 class="hero-title">
-            전공을 <span class="highlight">경험</span>으로<br>
-            경험을 <span class="highlight">성장</span>으로
+            공학하는 교대생,<br>
+            강의하는 공대생
         </h1>
         <p class="hero-subtitle">
-            내가 배운 전공 지식을 학생들과 나누고,<br>
-            교육 현장에서 함께 성장할 분을 찾습니다.
+            공학과 교육을 연결하는 DOROSSAEM 9기를 모집합니다.<br>
+            내가 배운 전공을 학생들의 눈높이에 맞게 전하고,<br>
+            교육 현장에서 강의 경험과 디지털 교육 역량을 함께 쌓아보세요.
         </p>
+        
+        <div class="hero-info-grid">
+            <div class="hero-info-pill"><span>🎯 모집대상</span> 공학 계열 및 교육 계열 청년</div>
+            <div class="hero-info-pill"><span>⏳ 접수기간</span> 2026.05.20 ~ 06.11</div>
+            <div class="hero-info-pill"><span>📅 활동기간</span> 2026.07.01 ~ 2027.03.31</div>
+        </div>
         
         <img src="images/강사단운영.gif" alt="현장 강의 및 멘토링 활동" class="hero-banner-img">
     </header>
@@ -352,20 +446,64 @@
     <!-- 2. Intro -->
     <section class="container section-border-top">
         <div class="intro-grid">
-            <h3>전공 지식을 나누며,<br>함께 성장하는 시간</h3>
+            <h3>공학 지식을 나누고,<br>교육 경험으로 채우다</h3>
             <div>
                 <img src="images/DORO로고.png" alt="주식회사 도로 로고" class="doro-logo">
                 
                 <p style="margin-bottom: 24px;">주식회사 도로(DORO)는 청소년을 대상으로 AI·로봇·소프트웨어·메이킹 교육을 운영하는 에듀테크 기업입니다.</p>
-                <p>단순히 지식을 전달하는 역할에 그치지 않습니다. 자신이 배우고 경험한 <strong>전공 지식을 학생들의 눈높이에 맞게 나누고, 실제 교육 현장에서 강의 경험과 포트폴리오를 쌓으며 한 단계 더 성장해 나갈 분</strong>을 기다립니다.</p>
+                <p>DOROSSAEM 9기는 공학과 교육이 만나는 강사단입니다. <strong>공대생은 자신이 배운 기술을 학생들이 이해할 수 있는 수업으로 바꾸고, 교대생은 미래 교실에 필요한 디지털·공학 교육을 실제 현장에서 경험</strong>합니다. DORO는 전공 지식을 학생들의 경험으로 바꾸고, 그 과정을 통해 강사 역시 성장할 수 있는 교육 현장을 만들어갑니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2.5 Major Compare (New Section) -->
+    <section class="section-bg">
+        <div class="container">
+            <h2 class="sec-title" style="text-align: center;">공대생과 교대생이<br>DOROSSAEM을 해야 하는 이유</h2>
+            
+            <div class="major-compare-grid">
+                <!-- 공대생 카드 -->
+                <div class="major-card major-card-tech">
+                    <div class="major-img-wrapper">
+                        <img src="images/공대.png" alt="공대쌤 활동 사진" class="major-card-img">
+                    </div>
+                    <h3 class="major-card-title">💻 공대생이라면</h3>
+                    <ul class="major-list">
+                        <li>내가 배운 기술을 학생 눈높이에 맞게 설명하는 경험</li>
+                        <li>AI·로봇·코딩·메이킹 수업을 직접 운영하는 경험</li>
+                        <li>기술을 쉽게 전달하는 커뮤니케이션 역량 강화</li>
+                        <li>강의 경력과 교육 포트폴리오 축적</li>
+                    </ul>
+                </div>
+                
+                <!-- 교대생 카드 -->
+                <div class="major-card major-card-edu">
+                    <div class="major-img-wrapper">
+                        <!-- transform과 transform-origin으로 사진 확대 및 선생님 쪽으로 위치 조정 -->
+                        <img src="images/교대.png" alt="교대쌤 활동 사진" class="major-card-img" style="transform: scale(1.3); transform-origin: 30% 30%;">
+                    </div>
+                    <h3 class="major-card-title">🏫 교대생이라면</h3>
+                    <ul class="major-list">
+                        <li>미래 교실에 필요한 디지털·공학 교육 경험</li>
+                        <li>초·중등 학생 대상 AI·로봇·코딩 수업 경험</li>
+                        <li>디지털 교육 역량 강화</li>
+                        <li>교직 진로와 연결되는 교육 포트폴리오 축적</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Highlight Banner -->
+            <div class="highlight-banner">
+                <h3>공대생에게는 강의 경험을,<br>교대생에게는 공학 교육 경험을.</h3>
+                <p>DORO 교육 현장에서 전공을 학생들의 경험으로 바꿔보세요.</p>
             </div>
         </div>
     </section>
 
     <!-- 3. Activities -->
-    <section class="container section-border-top">
-        <div class="sec-title">DOROSSAEM의<br>다양한 교육 활동</div>
-        <p class="sec-desc">활동 경험에 따라 주강사, 캠프 운영, 신규 강사 교육 등으로 역할을 넓혀갈 수 있습니다.</p>
+    <section class="container">
+        <h2 class="sec-title">DOROSSAEM의 다양한 교육 활동</h2>
+        <p class="sec-desc">AI·로봇·코딩·메이킹 교육 현장에서 공학 지식과 교육 역량을 함께 쌓아갑니다.</p>
         
         <a href="https://page.stibee.com/archives/203508" target="_blank" class="btn-outline">월간보고서에서 활동 자세히 알아보기 ↗</a>
 
@@ -373,7 +511,7 @@
             <div class="activity-images">
                 <img src="images/20251101_104901.jpg" alt="도로랜드 캠프 사진" class="activity-img">
                 <img src="images/유진쌤메인.png" alt="학교 수업 및 공공기관 멘토링 사진" class="activity-img">
-                <img src="images/대회현장_4.JPG" alt="대회 현장 사진" class="activity-img">
+                <img src="images/대회현장_4.jpg" alt="대회 현장 사진" class="activity-img">
             </div>
             
             <div class="activity-content">
@@ -382,25 +520,25 @@
                     <ul class="role-list">
                         <li>AI, 로봇, 코딩, 메이킹 디지털 교육 주·보조강사</li>
                         <li>초·중·고 및 대학 연계 디지털 교육</li>
-                        <li>1:1 멘토링 및 온라인 학생 맞춤형 교육</li>
+                        <li>학생 맞춤형 멘토링 및 온라인 수업</li>
                     </ul>
                 </div>
 
                 <div class="role-group">
-                    <h4 class="role-group-title">프로젝트 및 행사 기획</h4>
+                    <h4 class="role-group-title">캠프·프로젝트 운영</h4>
                     <ul class="role-list">
-                        <li>청소년 대상 '도로랜드' AI·디지털 체험 캠프 참여</li>
+                        <li>청소년 대상 도로랜드 AI·디지털 체험 캠프 참여</li>
                         <li>지자체·공공기관 기반 메이킹 교육 프로그램</li>
-                        <li>오프라인 행사 및 체험 부스 운영</li>
+                        <li>대회, 해커톤, 체험 부스 등 프로젝트형 교육 운영</li>
                     </ul>
                 </div>
 
                 <div class="role-group">
-                    <h4 class="role-group-title">콘텐츠 개발 및 확장</h4>
+                    <h4 class="role-group-title">콘텐츠 이해 및 성장</h4>
                     <ul class="role-list">
                         <li>교육 콘텐츠, 교구, 수업자료 이해 및 현장 활용</li>
-                        <li>캠프 총괄 운영 파트 참여</li>
-                        <li>신규 강사 교육 멘토 참여 등 역할 확장</li>
+                        <li>활동 경험에 따라 주강사·캠프 운영·신규 강사 교육으로 역할 확장</li>
+                        <li>활동 이력 기반 포트폴리오 축적</li>
                     </ul>
                 </div>
             </div>
@@ -427,7 +565,7 @@
                 </div>
                 
                 <!-- 보조강사 카드 -->
-                <div class="info-box highlight-box-green" style="background-color: #F8FAFC;">
+                <div class="info-box highlight-box-green" style="background-color: var(--accent-green-light);">
                     <h4>👨‍🔧 보조 도로쌤 (Assistant)</h4>
                     <ul class="role-list">
                         <li>
@@ -444,8 +582,7 @@
 
             <!-- 하단 안내 문구 -->
             <div class="role-bottom-wrapper">
-                <h4 class="role-bottom-title">도로쌤이 되어 전공 지식과 디지털 기술을<br>청소년들에게 공유하고 잊지 못할 추억과 경험을 쌓아보세요🔥</h4>
-                <p class="role-bottom-desc">
+                <p class="role-bottom-desc" style="font-weight: 600; color: var(--text-main);">
                     *강사 유형은 따로 구분하여 선발하지 않으며, 강의 신청 시마다 선택하여 진행됩니다.
                 </p>
             </div>
@@ -463,7 +600,9 @@
                     <span class="benefit-icon">💸</span>
                     <h4>강사 활동비 지급</h4>
                     <p>활동 유형과 역할에 따라 합리적인 활동비를 지급합니다.</p>
-                    <span class="benefit-highlight">* 시급 15,000원 ~ 45,000원</span>
+                    <p class="benefit-highlight">
+                        * 시급 15,000원 ~ 45,000원
+                    </p>
                 </div>
                 <div class="benefit-item">
                     <span class="benefit-icon">📈</span>
@@ -497,22 +636,22 @@
     <!-- 5. Process -->
     <section class="container">
         <h2 class="sec-title">모집 일정 및 절차</h2>
-        <p class="sec-desc">모집 서류 및 영상 접수: <strong>2026.05.20(수) ~ 06.11(목)</strong></p>
+        <p class="sec-desc">모집 서류 접수: <strong>2026.05.20(수) ~ 06.11(목)</strong></p>
 
         <ul class="process-list">
             <li class="process-row">
                 <div class="process-num">1</div>
-                <div class="process-title">지원서 및 영상 접수(선택)</div>
+                <div class="process-title">지원서 접수<br><span style="font-size: 1rem; font-weight: 500; color: var(--text-muted); display:block; margin-top:4px;">(영상 제출 선택)</span></div>
                 <div class="process-desc">
-                    기본 인적사항, 전공, 관련 경험, 그리고 <strong>1~2분 이내의 자기소개 영상</strong>을 제출해 주세요.(영상 제출은 선택사항)
-                    <span class="process-sub">* 영상은 편집 실력이 아닌 자연스러운 전달력을 확인하기 위함입니다.</span>
-                    <span class="process-sub-list">
-                        * 아래 4가지 주제 중 <strong>최소 2가지 이상</strong>을 포함하여 자유롭게 이야기해 주세요.<br>
-                        &nbsp;&nbsp;1) 본인의 전공 또는 관심 분야<br>
-                        &nbsp;&nbsp;2) DOROSSAEM에 지원하게 된 동기<br>
-                        &nbsp;&nbsp;3) 가장 자신 있는 분야와 이를 강의에 어떻게 활용할 것인지<br>
-                        &nbsp;&nbsp;4) DOROSSAEM 활동을 통해 얻어가고 싶은 경험과 목표
-                    </span>
+                    기본 인적사항, 전공, 관련 경험 등을 작성하여 지원서를 제출해 주세요.<br>본인을 더 잘 어필하고 싶다면 <strong>1~2분 이내의 자기소개 영상(선택)</strong>을 함께 제출할 수 있습니다.
+                    <span class="process-sub" style="margin-top: 16px; color: var(--primary); font-weight: 600;">* 영상 제출 시 아래 4가지 주제 중 최소 2가지 이상을 포함해 자유롭게 이야기해 주세요.</span>
+                    <ul class="process-sub-list" style="margin-top: 8px; padding-left: 16px; list-style-type: disc;">
+                        <li style="margin-bottom: 4px;">본인의 전공 또는 관심 분야</li>
+                        <li style="margin-bottom: 4px;">DOROSSAEM에 지원하게 된 동기</li>
+                        <li style="margin-bottom: 4px;">가장 자신 있는 분야와 이를 강의에 어떻게 활용할 것인지</li>
+                        <li>DOROSSAEM 활동을 통해 얻어가고 싶은 경험과 목표</li>
+                    </ul>
+                    <span class="process-sub" style="margin-top: 12px; font-size: 0.95rem;">※ 영상은 필수 사항이 아니며, 제출 시 편집 실력이 아닌 자연스러운 전달력을 확인하는 용도로만 참고합니다.</span>
                 </div>
             </li>
             <li class="process-row">
@@ -546,18 +685,23 @@
             <div>
                 <h2 class="sec-title">이런 분을 기다립니다</h2>
                 <ul class="role-list target-list">
-                    <li>내가 배운 전공 지식을 학생들과 나누고 싶은 분</li>
-                    <li>AI, 로봇, 코딩, 메이킹 등 디지털 교육에 관심 있는 분</li>
+                    <li>내가 배운 공학·디지털 지식을 학생들과 나누고 싶은 분</li>
+                    <li>AI, 로봇, 코딩, 메이킹 교육을 직접 경험하고 싶은 <strong>공학 계열 청년</strong></li>
+                    <li>미래 교실에 필요한 디지털·공학 교육 경험을 쌓고 싶은 <strong>교육 계열 청년</strong></li>
                     <li>아이들과 소통하며 교육 현장에서 함께 성장하고 싶은 분</li>
-                    <li>책임감 있게 활동하며 확실한 강의 경력을 만들고 싶은 분</li>
+                    <li>책임감 있게 활동하며 강의 경력과 교육 포트폴리오를 만들고 싶은 분</li>
                 </ul>
             </div>
             
             <div class="info-box highlight-box target-box">
                 <h4>📌 모집 요약</h4>
-                <p><strong>모집대상:</strong> 디지털 교육에 관심 있는 청년 누구나</p>
+                <p style="margin-bottom: 8px;"><strong>모집대상:</strong> 공학 계열 및 교육 계열 전공 청년</p>
+                <span class="target-box-sub" style="margin-bottom: 24px;">
+                    (예: 공학계열, 이공계, 컴퓨터·AI·로봇·전자·소프트웨어 관련 전공, 교육대학·사범대학·교육학 관련 전공 등)
+                </span>
+                
                 <p><strong>활동기간:</strong> 2026.07.01 ~ 2027.03.31</p>
-                <p><strong>활동지역:</strong> 전국 교육 현장
+                <p style="margin-bottom: 0;"><strong>활동지역:</strong> 전국 교육 현장<br>
                     <span class="target-box-sub">
                         *주 활동 지역은 <strong>수도권 중심</strong>이지만, 캠프나 프로젝트에 따라 <strong>그 외 지역(지방) 활동</strong>이 있을 수 있습니다.
                     </span>
@@ -580,12 +724,12 @@
         
         <ul class="faq-list">
             <li class="faq-item">
-                <button class="faq-q">공학 전공만 신청 가능한가요? <span>+</span></button>
-                <div class="faq-a">아닙니다. 디지털 교육에 관심 있는 청년 누구나 지원할 수 있습니다. 다만 AI, 로봇, 코딩, 메이킹 등 관련 전공 또는 경험이 있는 경우 활동 배정에 도움이 될 수 있습니다.</div>
+                <button class="faq-q">공대생이나 교대생만 지원할 수 있나요? <span>+</span></button>
+                <div class="faq-a">DOROSSAEM 9기는 공학 계열 및 교육 계열 전공 청년을 중심으로 모집합니다. 공학계열, 이공계, 컴퓨터·AI·로봇·전자·소프트웨어 관련 전공자와 교육대학·사범대학·교육학 관련 전공자를 우선 대상으로 합니다. 관련 활동 경험이 있는 경우에도 지원 가능 여부를 검토할 수 있습니다.</div>
             </li>
             <li class="faq-item">
                 <button class="faq-q">강의 경험이 없어도 지원할 수 있나요? <span>+</span></button>
-                <div class="faq-a">지원할 수 있습니다. 다만 강의 경험이나 학생 대상 교육·멘토링 경험이 부족한 경우, 온라인 인터뷰를 통해 교육 적합성을 추가로 확인할 수 있습니다.</div>
+                <div class="faq-a">지원할 수 있습니다. 다만 강의 경험이나 학생 대상 교육·멘토링 경험이 부족한 경우, 온라인 인터뷰를 통해 교육 적합성을 추가로 확인할 수 기습니다.</div>
             </li>
             <li class="faq-item">
                 <button class="faq-q">활동은 원하는 만큼 신청할 수 있나요? <span>+</span></button>
@@ -604,7 +748,8 @@
         <img src="images/7기OT.jpg" alt="배경 사진" class="bottom-cta-img">
         
         <div class="bottom-cta-content container">
-            <h2>학생들과 함께 배우고 성장할<br>DOROSSAEM 9기를 기다립니다</h2>
+            <h2>공학과 교육을 연결할<br>DOROSSAEM 9기를 기다립니다</h2>
+            <p>전공을 경험으로, 경험을 성장으로.<br>학생들과 함께 배우고 성장할 분을 찾습니다.</p>
             
             <a href="https://forms.gle/t5PZpYVGVuyb6uxU9" target="_blank" class="btn-huge">지금 바로 지원하기</a>
             
@@ -616,7 +761,7 @@
             </div>
         </div>
     </footer>
-<!--test-->
+
     <script>
         // FAQ Accordion Logic
         document.querySelectorAll('.faq-q').forEach(button => {
